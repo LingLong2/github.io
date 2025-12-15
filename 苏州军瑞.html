@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>苏州军瑞运输有限公司 - 专业港口物流服务提供商</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- GSAP 动画库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap');
+        
+        :root {
+            --primary-color: #0B3D91;
+            --secondary-color: #0A2472;
+            --accent-color: #00D4FF;
+            --text-light: #F0F4F8;
+            --text-dark: #1A1A2E;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .hero-section {
+            background-image: url('https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/e9cce37c9d7b49a2bea6290f132dfdd2~tplv-a9rns2rl98-image.image?rcl=20251215114920C5DD718D7C15E8EABEDB&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1768362575&x-signature=rXNqI9tja45fFEf6MKh4zsyOZoU%3D');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(11, 61, 145, 0.8), rgba(10, 36, 114, 0.9));
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-outline {
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        .card {
+            transition: all 0.3s ease;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .timeline {
+            position: relative;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background-color: var(--primary-color);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            border: 3px solid var(--primary-color);
+        }
+        
+        .timeline-content {
+            position: relative;
+            width: calc(50% - 30px);
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content {
+            left: calc(50% + 30px);
+        }
+        
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .counter {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .counter-label {
+            font-size: 1rem;
+            color: var(--text-dark);
+            margin-top: 0.5rem;
+        }
+        
+        #canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.3;
+        }
+        
+        .fleet-card {
+            transition: all 0.3s ease;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .fleet-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .partner-logo {
+            filter: grayscale(100%);
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+        
+        .partner-logo:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+        
+        .service-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: rgba(11, 61, 145, 0.1);
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .service-card:hover .service-icon {
+            background-color: var(--primary-color);
+            color: white;
+            transform: rotateY(180deg);
+        }
+        
+        .contact-info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.375rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(11, 61, 145, 0.2);
+        }
+        
+        .footer {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .footer-link {
+            color: #a0aec0;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item::before {
+                left: 30px;
+            }
+            
+            .timeline-content {
+                width: calc(100% - 60px);
+                left: 60px !important;
+            }
+        }
+        
+        /* 加载动画 */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .loader-circle {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #e2e8f0;
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        /* 滚动指示器 */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: var(--accent-color);
+            z-index: 1000;
+            transition: width 0.1s ease;
+        }
+        
+        /* 标语动画 */
+        .tagline {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 0.5s;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* 数字增长动画 */
+        .counter-value {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .counter-value.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.5s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- 加载动画 -->
+    <div class="loader">
+        <div class="loader-circle"></div>
+    </div>
+    
+    <!-- 滚动指示器 -->
+    <div class="scroll-indicator"></div>
+    
+    <!-- 导航栏 -->
+    <nav class="bg-white shadow-md fixed w-full z-50">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <a href="#" class="text-2xl font-bold text-blue-800">
+                        <span class="text-blue-500">军瑞</span>运输
+                    </a>
+                </div>
+                
+                <!-- 桌面导航 -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="nav-link text-gray-800 hover:text-blue-800 font-medium">首页</a>
+                    <a href="#about" class="nav-link text-gray-800 hover:text-blue-800 font-medium">关于我们</a>
+                    <a href="#services" class="nav-link text-gray-800 hover:text-blue-800 font-medium">业务范围</a>
+                    <a href="#fleet" class="nav-link text-gray-800 hover:text-blue-800 font-medium">车队设备</a>
+                    <a href="#partners" class="nav-link text-gray-800 hover:text-blue-800 font-medium">合作伙伴</a>
+                    <a href="#culture" class="nav-link text-gray-800 hover:text-blue-800 font-medium">企业文化</a>
+                    <a href="#contact" class="nav-link text-gray-800 hover:text-blue-800 font-medium">联系我们</a>
+                    <a href="#contact" class="btn-primary px-6 py-2 rounded-full font-medium">合作咨询</a>
+                </div>
+                
+                <!-- 移动端菜单按钮 -->
+                <div class="md:hidden">
+                    <button id="menu-toggle" class="text-gray-800 focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 移动端导航菜单 -->
+            <div id="mobile-menu" class="md:hidden hidden bg-white mt-4 rounded-lg shadow-lg">
+                <div class="flex flex-col space-y-4 p-4">
+                    <a href="#home" class="text-gray-800 hover:text-blue-800 font-medium py-2">首页</a>
+                    <a href="#about" class="text-gray-800 hover:text-blue-800 font-medium py-2">关于我们</a>
+                    <a href="#services" class="text-gray-800 hover:text-blue-800 font-medium py-2">业务范围</a>
+                    <a href="#fleet" class="text-gray-800 hover:text-blue-800 font-medium py-2">车队设备</a>
+                    <a href="#partners" class="text-gray-800 hover:text-blue-800 font-medium py-2">合作伙伴</a>
+                    <a href="#culture" class="text-gray-800 hover:text-blue-800 font-medium py-2">企业文化</a>
+                    <a href="#contact" class="text-gray-800 hover:text-blue-800 font-medium py-2">联系我们</a>
+                    <a href="#contact" class="btn-primary px-6 py-2 rounded-full font-medium text-center mt-2">合作咨询</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- 首页英雄区 -->
+    <section id="home" class="hero-section h-screen flex items-center">
+        <div id="canvas-container"></div>
+        <div class="container mx-auto px-4 hero-content">
+            <div class="max-w-3xl">
+                <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+                    专业港口物流服务<br>
+                    <span class="text-blue-300">十年专注 · 值得信赖</span>
+                </h1>
+                <p class="text-xl text-gray-200 mb-8 tagline">
+                    苏州军瑞运输有限公司致力于为客户提供高效、安全、可靠的物流运输服务，
+                    专业从事普通货运、搬运装卸、集装箱货物专用运输、港口货物装卸搬运等业务。
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#about" class="btn-primary px-8 py-3 rounded-full font-medium text-lg">
+                        了解更多
+                    </a>
+                    <a href="#contact" class="btn-outline px-8 py-3 rounded-full font-medium text-lg">
+                        联系我们
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+            <a href="#about" class="flex flex-col items-center">
+                <span class="mb-2">向下滚动</span>
+                <i class="fas fa-chevron-down"></i>
+            </a>
+        </div>
+    </section>
+    
+    <!-- 关于我们 -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2">
+                    <h2 class="section-title text-3xl md:text-4xl font-bold text-gray-800">关于我们</h2>
+                    <p class="text-gray-600 mb-6 text-lg">
+                        苏州军瑞运输有限公司成立于2011年6月16日，注册资本1000万元人民币，是一家专业从事港口物流服务的企业。
+                        公司位于太仓港港口开发区北环路19号，地理位置优越，交通便利。
+                    </p>
+                    <p class="text-gray-600 mb-8 text-lg">
+                        十余年来，公司始终坚持"以人为本、安全快捷、信誉第一、客户至上"的宗旨，
+                        凭借专业的团队、完善的设备和优质的服务，赢得了广大客户的信赖和支持。
+                    </p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        <div class="text-center">
+                            <div class="counter" data-target="12">0</div>
+                            <div class="counter-label">年行业经验</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="counter" data-target="51">0</div>
+                            <div class="counter-label">专业团队</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="counter" data-target="53">0</div>
+                            <div class="counter-label">车辆设备</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="counter" data-target="4">0</div>
+                            <div class="counter-label">长期合作伙伴</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/70b3ddcb9a2b41c68a7f0812ad886481~tplv-a9rns2rl98-image.image?rcl=20251215114920C5DD718D7C15E8EABEDB&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1768362599&x-signature=M8KqlxDxi6mhgEbFoJiC1DOIcdY%3D" 
+                         alt="港口物流作业" 
+                         class="rounded-xl shadow-2xl w-full h-auto">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 业务范围 -->
+    <section id="services" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="section-title text-3xl md:text-4xl font-bold text-gray-800 mx-auto">业务范围</h2>
+                <p class="text-gray-600 mt-6 max-w-3xl mx-auto text-lg">
+                    我们提供全方位的港口物流服务，包括货物运输、装卸搬运、集装箱处理等，
+                    为客户提供一站式物流解决方案。
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- 业务卡片 1 -->
+                <div class="service-card bg-white shadow-lg p-8 rounded-lg animate-on-scroll">
+                    <div class="service-icon">
+                        <i class="fas fa-ship text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">锂矿卸船装箱</h3>
+                    <p class="text-gray-600">
+                        专业从事锂矿卸船装箱业务，拥有先进的装卸设备和经验丰富的操作团队，
+                        确保货物安全、高效地完成装卸作业。
+                    </p>
+                    <a href="#contact" class="inline-flex items-center mt-6 text-blue-600 font-medium">
+                        了解更多 <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- 业务卡片 2 -->
+                <div class="service-card bg-white shadow-lg p-8 rounded-lg animate-on-scroll" style="animation-delay: 0.2s;">
+                    <div class="service-icon">
+                        <i class="fas fa-truck-loading text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">出口车辆装卸技术</h3>
+                    <p class="text-gray-600">
+                        提供出口车辆装卸技术服务，包括车辆固定、绑扎、加固等，
+                        确保车辆在运输过程中的安全。
+                    </p>
+                    <a href="#contact" class="inline-flex items-center mt-6 text-blue-600 font-medium">
+                        了解更多 <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- 业务卡片 3 -->
+                <div class="service-card bg-white shadow-lg p-8 rounded-lg animate-on-scroll" style="animation-delay: 0.4s;">
+                    <div class="service-icon">
+                        <i class="fas fa-warehouse text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">船舶清仓业务</h3>
+                    <p class="text-gray-600">
+                        专业从事船舶清仓业务，拥有专业的清仓设备和经验丰富的操作团队，
+                        确保船舱清洁、彻底，符合下次装载要求。
+                    </p>
+                    <a href="#contact" class="inline-flex items-center mt-6 text-blue-600 font-medium">
+                        了解更多 <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- 业务卡片 4 -->
+                <div class="service-card bg-white shadow-lg p-8 rounded-lg animate-on-scroll" style="animation-delay: 0.6s;">
+                    <div class="service-icon">
+                        <i class="fas fa-boxes text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">货物装卸与搬运</h3>
+                    <p class="text-gray-600">
+                        提供各类货物装卸与搬运服务，包括散货、件杂货、集装箱等，
+                        确保货物安全、高效地完成装卸搬运作业。
+                    </p>
+                    <a href="#contact" class="inline-flex items-center mt-6 text-blue-600 font-medium">
+                        了解更多 <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- 业务优势 -->
+            <div class="mt-20">
+                <h3 class="text-2xl font-bold text-gray-800 mb-10 text-center">我们的业务优势</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white p-8 rounded-lg shadow-lg animate-on-scroll">
+                        <div class="flex items-center mb-6">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-check text-blue-600 text-xl"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-gray-800">专业可靠</h4>
+                        </div>
+                        <p class="text-gray-600">
+                            拥有12年行业经验，专业团队51人，其中48名为特种车辆驾驶员，
+                            确保作业安全、高效。
+                        </p>
+                    </div>
+                    
+                    <div class="bg-white p-8 rounded-lg shadow-lg animate-on-scroll" style="animation-delay: 0.2s;">
+                        <div class="flex items-center mb-6">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-truck text-blue-600 text-xl"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-gray-800">设备齐全</h4>
+                        </div>
+                        <p class="text-gray-600">
+                            拥有各类车辆设备53台，包括集装箱自卸车、普通集装箱运输车、散货自卸车等，
+                            满足不同货物的运输需求。
+                        </p>
+                    </div>
+                    
+                    <div class="bg-white p-8 rounded-lg shadow-lg animate-on-scroll" style="animation-delay: 0.4s;">
+                        <div class="flex items-center mb-6">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-shield-alt text-blue-600 text-xl"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-gray-800">安全快捷</h4>
+                        </div>
+                        <p class="text-gray-600">
+                            严格遵守安全操作规程，确保货物和人员安全，
+                            高效的作业流程，确保按时完成任务。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 车队设备 -->
+    <section id="fleet" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="section-title text-3xl md:text-4xl font-bold text-gray-800 mx-auto">车队设备</h2>
+                <p class="text-gray-600 mt-6 max-w-3xl mx-auto text-lg">
+                    我们拥有一支规模庞大、设备先进的车队，包括各类专用车辆和装卸设备，
+                    能够满足不同货物的运输和装卸需求。
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 车队卡片 1 -->
+                <div class="fleet-card bg-white shadow-lg rounded-lg overflow-hidden animate-on-scroll">
+                    <img src="https://p9-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/4ac57c37b567471a85c815c471a984fb~tplv-a9rns2rl98-image.image?rcl=20251215114920C5DD718D7C15E8EABEDB&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1768362586&x-signature=c6mAynDjYI%2B3%2FJXJlo2udm9zwoI%3D" 
+                         alt="集装箱自卸车" 
+                         class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">集装箱自卸车</h3>
+                        <ul class="text-gray-600 space-y-2">
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                20尺集装箱自卸车：12台
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                40尺集装箱自卸车：2台
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                适用于各类散装货物运输
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- 车队卡片 2 -->
+                <div class="fleet-card bg-white shadow-lg rounded-lg overflow-hidden animate-on-scroll" style="animation-delay: 0.2s;">
+                    <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/e9cce37c9d7b49a2bea6290f132dfdd2~tplv-a9rns2rl98-image.image?rcl=20251215114920C5DD718D7C15E8EABEDB&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1768362575&x-signature=rXNqI9tja45fFEf6MKh4zsyOZoU%3D" 
+                         alt="普通集装箱运输车" 
+                         class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">普通集装箱运输车</h3>
+                        <ul class="text-gray-600 space-y-2">
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                普通集装箱运输车：15台
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                适用于标准集装箱运输
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                配备先进的固定和绑扎设备
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- 车队卡片 3 -->
+                <div class="fleet-card bg-white shadow-lg rounded-lg overflow-hidden animate-on-scroll" style="animation-delay: 0.4s;">
+                    <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/70b3ddcb9a2b41c68a7f0812ad886481~tplv-a9rns2rl98-image.image?rcl=20251215114920C5DD718D7C15E8EABEDB&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1768362599&x-signature=M8KqlxDxi6mhgEbFoJiC1DOIcdY%3D" 
+                         alt="装卸设备" 
+                         class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">装卸设备</h3>
+                        <ul class="text-gray-600 space-y-2">
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                装载机：原木拆装箱18台、散货铲斗8台
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                挖机：3台
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                                锂矿/粮食化肥装箱机械：皮带机、装载机、翻箱机等
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 其他设备 -->
+            <div class="mt-16 bg-gray-50 p-8 rounded-xl shadow-lg animate-on-scroll">
+                <h3 class="text-2xl font-bold text-gray-800 mb-6">其他设备</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-xl font-bold text-gray-800 mb-4">运输车辆</h4>
+                        <ul class="text-gray-600 space-y-3">
+                            <li class="flex items-center">
+                                <i class="fas fa-truck text-blue-600 mr-3"></i>
+                                散货自卸车：15台
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-truck text-blue-600 mr-3"></i>
+                                件杂货车：9辆
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-bold text-gray-800 mb-4">专用设备</h4>
+                        <ul class="text-gray-600 space-y-3">
+                            <li class="flex items-center">
+                                <i class="fas fa-cogs text-blue-600 mr-3"></i>
+                                锂矿专用装卸设备：多套
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-cogs text-blue-600 mr-3"></i>
+                                粮食化肥专用装卸设备：多套
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 合作伙伴 -->
+    <section id="partners" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="section-title text-3xl md:text-4xl font-bold text-gray-800 mx-auto">合作伙伴</h2>
+                <p class="text-gray-600 mt-6 max-w-3xl mx-auto text-lg">
+                    我们与多家知名企业建立了长期稳定的合作关系，
+                    共同为客户提供优质的物流服务。
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- 合作伙伴卡片 1 -->
+                <div class="bg-white p-8 rounded-lg shadow-lg animate-on-scroll">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-globe text-blue-600 text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-800">苏州龙达国际货运代理有限公司</h3>
+                            <p class="text-gray-600">合作时间：2007年至今</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-6">
+                        苏州龙达国际货运代理有限公司是一家专业从事国际货运代理业务的企业，
+                        我们与龙达国际建立了长期稳定的合作关系，共同为客户提供国际物流服务。
+                    </p>
+                    <div class="flex items-center">
+                        <div class="flex text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="ml-2 text-gray-600">合作16年</span>
+                    </div>
+                </div>
+                
+                <!-- 合作伙伴卡片 2 -->
+                <div class="bg-white p-8 rounded-lg shadow-lg animate-on-scroll" style="animation-delay: 0.2s;">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-ship text-blue-600 text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-800">大洋物流公司</h3>
+                            <p class="text-gray-600">合作时间：2009年至今</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-6">
+                        大洋物流公司是一家专业从事海洋物流业务的企业，
+                        我们与大洋物流建立了长期稳定的合作关系，共同为客户提供海洋物流服务。
+                    </p>
+                    <div class="flex items-center">
+                        <div class="flex text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="ml-2 text-gray-600">合作14年</span>
+                    </div>
+                </div>
+                
+                <!-- 合作伙伴卡片 3 -->
+                <div class="bg-white p-8 rounded-lg shadow-lg animate-on-scroll" style="animation-delay: 0.4s;">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-warehouse text-blue-600 text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-800">美锦码头</h3>
+                            <p class="text-gray-600">合作时间：2013年至今</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-6">
+                        美锦码头是一家专业从事码头运营业务的企业，
+                        我们与美锦码头建立了长期稳定的合作关系，共同为客户提供码头物流服务。
+                    </p>
+                    <div class="flex items-center">
+                        <div class="flex text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="ml-2 text-gray-600">合作10年</span>
+                    </div>
+                </div>
+                
+                <!-- 合作伙伴卡片 4 -->
+                <div class="bg-white p-8 rounded-lg shadow-lg animate-on-scroll" style="animation-delay: 0.6s;">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-box text-blue-600 text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-800">鑫海码头</h3>
+                            <p class="text-gray-600">合作时间：2018年至今</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-6">
+                        鑫海码头是一家专业从事码头运营业务的企业，
+                        我们与鑫海码头建立了长期稳定的合作关系，共同为客户提供码头物流服务。
+                    </p>
+                    <div class="flex items-center">
+                        <div class="flex text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="ml-2 text-gray-600">合作5年</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 合作流程 -->
+            <div class="mt-20">
+                <h3 class="text-2xl font-bold text-gray-800 mb-10 text-center">合作流程</h3>
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="flex flex-col items-center mb-8 md:mb-0 animate-on-scroll">
+                        <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-phone-alt text-blue-600 text-2xl"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-gray-800 mb-2">咨询洽谈</h4>
+                        <p class="text-gray-600 text-center max-w-xs">
+                            客户通过电话、邮件等方式咨询业务，我们提供专业的解答和建议。
+                        </p>
+                    </div>
+                    
+                    <div class="hidden md:block text-blue-600">
+                        <i class="fas fa-arrow-right text-2xl"></i>
+                    </div>
+                    <div class="block md:hidden text-blue-600 my-4">
+                        <i class="fas fa-arrow-down text-2xl"></i>
+                    </div>
+                    
+                    <div class="flex flex-col items-center mb-8 md:mb-0 animate-on-scroll" style="animation-delay: 0.2s;">
+                        <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-file-contract text-blue-600 text-2xl"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-gray-800 mb-2">签订合同</h4>
+                        <p class="text-gray-600 text-center max-w-xs">
+                            双方确认合作细节，签订合作合同，明确双方权利和义务。
+                        </p>
+                    </div>
+                    
+                    <div class="hidden md:block text-blue-600">
+                        <i class="fas fa-arrow-right text-2xl"></i>
+                    </div>
+                    <div class="block md:hidden text-blue-600 my-4">
+                        <i class="fas fa-arrow-down text-2xl"></i>
+                    </div>
+                    
+                    <div class="flex flex-col items-center mb-8 md:mb-0 animate-on-scroll" style="animation-delay: 0.4s;">
+                        <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-tasks text-blue-600 text-2xl"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-gray-800 mb-2">制定方案</h4>
+                        <p class="text-gray-600 text-center max-w-xs">
+                            根据客户需求，制定详细的物流方案，包括运输路线、时间安排等。
+                        </p>
+                    </div>
+                    
+                    <div class="hidden md:block text-blue-600">
+                        <i class="fas fa-arrow-right text-2xl"></i>
+                    </div>
+                    <div class="block md:hidden text-blue-600 my-4">
+                        <i class="fas fa-arrow-down text-2xl"></i>
+                    </div>
+                    
+                    <div class="flex flex-col items-center animate-on-scroll" style="animation-delay: 0.6s;">
+                        <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                            <i class="fas fa-check-circle text-blue-600 text-2xl"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-gray-800 mb-2">执行服务</h4>
+                        <p class="text-gray-600 text-center max-w-xs">
+                            按照制定的方案执行物流服务，确保货物安全、准时送达。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 企业文化 -->
+    <section id="culture" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="section-title text-3xl md:text-4xl font-bold text-gray-800 mx-auto">企业文化</h2>
+                <p class="text-gray-600 mt-6 max-w-3xl mx-auto text-lg">
+                    我们秉承"以人为本、安全快捷、信誉第一、客户至上"的宗旨，
+                    构建积极向上的企业文化，为员工提供广阔的发展平台。
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- 文化卡片 1 -->
+                <div class="bg-white p-8 rounded-lg shadow-lg text-center animate-on-scroll">
+                    <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-users text-blue-600 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">以人为本</h3>
+                    <p class="text-gray-600">
+                        尊重员工，关爱员工，为员工提供良好的工作环境和发展机会，
+                        激发员工的工作热情和创造力。
+                    </p>
+                </div>
+                
+                <!-- 文化卡片 2 -->
+                <div class="bg-white p-8 rounded-lg shadow-lg text-center animate-on-scroll" style="animation-delay: 0.2s;">
+                    <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-shield-alt text-blue-600 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">安全快捷</h3>
+                    <p class="text-gray-600">
+                        把安全放在首位，确保货物和人员安全，
+                        优化作业流程，提高工作效率，确保按时完成任务。
+                    </p>
+                </div>
+                
+                <!-- 文化卡片 3 -->
+                <div class="bg-white p-8 rounded-lg shadow-lg text-center animate-on-scroll" style="animation-delay: 0.4s;">
+                    <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-handshake text-blue-600 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">信誉第一</h3>
+                    <p class="text-gray-600">
+                        诚实守信，言出必行，
+                        以信誉赢得客户的信任和支持，树立良好的企业形象。
+                    </p>
+                </div>
+                
+                <!-- 文化卡片 4 -->
+                <div class="bg-white p-8 rounded-lg shadow-lg text-center animate-on-scroll" style="animation-delay: 0.6s;">
+                    <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-heart text-blue-600 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">客户至上</h3>
+                    <p class="text-gray-600">
+                        以客户需求为中心，提供优质的服务，
+                        不断创新，满足客户日益增长的需求。
+                    </p>
+                </div>
+            </div>
+            
+            <!-- 企业精神 -->
+            <div class="mt-20 bg-blue-50 rounded-xl p-8 md:p-12 animate-on-scroll">
+                <div class="flex flex-col md:flex-row items-center gap-8">
+                    <div class="md:w-1/2">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">企业精神</h3>
+                        <p class="text-gray-600 mb-6">
+                            我们倡导"踏实、拼搏、责任"的企业精神，鼓励员工脚踏实地工作，勇于拼搏创新，
+                            勇于承担责任，为企业发展贡献自己的力量。
+                        </p>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">经营理念</h3>
+                        <p class="text-gray-600">
+                            我们秉承"诚信、共赢、开创"的经营理念，坚持诚信经营，与客户、合作伙伴实现共赢，
+                            不断开拓创新，引领行业发展。
+                        </p>
+                    </div>
+                    <div class="md:w-1/2 grid grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <i class="fas fa-feather-alt text-blue-600 mb-2"></i>
+                            <h4 class="font-bold">踏实</h4>
+                            <p class="text-gray-600 text-sm">脚踏实地，认真工作</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <i class="fas fa-running text-blue-600 mb-2"></i>
+                            <h4 class="font-bold">拼搏</h4>
+                            <p class="text-gray-600 text-sm">勇于拼搏，不断进取</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <i class="fas fa-briefcase text-blue-600 mb-2"></i>
+                            <h4 class="font-bold">责任</h4>
+                            <p class="text-gray-600 text-sm">勇于担当，尽职尽责</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <i class="fas fa-lightbulb text-blue-600 mb-2"></i>
+                            <h4 class="font-bold">创新</h4>
+                            <p class="text-gray-600 text-sm">开拓创新，引领发展</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 联系我们 -->
+    <section id="contact" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="section-title text-3xl md:text-4xl font-bold text-gray-800 mx-auto">联系我们</h2>
+                <p class="text-gray-600 mt-6 max-w-3xl mx-auto text-lg">
+                    无论您有任何问题或需求，我们都将竭诚为您服务。
+                    请通过以下方式与我们联系，我们将在24小时内回复您。
+                </p>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="lg:w-1/2">
+                    <div class="bg-white rounded-xl shadow-lg p-8">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6">联系信息</h3>
+                        
+                        <div class="contact-info-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">公司地址</h4>
+                                <p class="text-gray-600">太仓港港口开发区北环路19号</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">联系电话</h4>
+                                <p class="text-gray-600">15962278381</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">电子邮箱</h4>
+                                <p class="text-gray-600">3082953421@qq.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">工作时间</h4>
+                                <p class="text-gray-600">周一至周五: 9:00 - 18:00</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">法定代表人</h4>
+                                <p class="text-gray-600">李军让</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800">注册资本</h4>
+                                <p class="text-gray-600">1000万元人民币</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <div class="bg-white rounded-xl shadow-lg p-8 flex flex-col justify-center">
+                        <div class="text-center">
+                            <h3 class="text-2xl font-bold text-gray-800 mb-6">业务咨询</h3>
+                            <p class="text-gray-600 mb-8 text-lg">
+                                如需了解更多业务信息或合作事宜，请通过以下方式与我们联系，我们将竭诚为您服务。
+                            </p>
+                            <div class="flex flex-col items-center space-y-4">
+                                <a href="tel:15962278381" class="btn-primary px-8 py-3 rounded-full font-medium text-lg flex items-center">
+                                    <i class="fas fa-phone-alt mr-2"></i> 拨打电话咨询
+                                </a>
+                                <a href="mailto:3082953421@qq.com" class="btn-outline px-8 py-3 rounded-full font-medium text-lg flex items-center">
+                                    <i class="fas fa-envelope mr-2"></i> 发送邮件咨询
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 页脚 -->
+    <footer class="footer py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div>
+                    <a href="#" class="text-2xl font-bold text-white mb-6 inline-block">
+                        <span class="text-blue-300">军瑞</span>运输
+                    </a>
+                    <p class="text-gray-400 mb-6">
+                        苏州军瑞运输有限公司成立于2011年，是一家专业从事港口物流服务的企业。
+                        我们致力于为客户提供高效、安全、可靠的物流运输服务。
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-weixin text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-weibo text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-linkedin-in text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-6">快速链接</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#home" class="footer-link">首页</a></li>
+                        <li><a href="#about" class="footer-link">关于我们</a></li>
+                        <li><a href="#services" class="footer-link">业务范围</a></li>
+                        <li><a href="#fleet" class="footer-link">车队设备</a></li>
+                        <li><a href="#partners" class="footer-link">合作伙伴</a></li>
+                        <li><a href="#culture" class="footer-link">企业文化</a></li>
+                        <li><a href="#contact" class="footer-link">联系我们</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-6">业务服务</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="footer-link">锂矿卸船装箱</a></li>
+                        <li><a href="#" class="footer-link">出口车辆装卸技术</a></li>
+                        <li><a href="#" class="footer-link">船舶清仓业务</a></li>
+                        <li><a href="#" class="footer-link">货物装卸与搬运</a></li>
+                        <li><a href="#" class="footer-link">集装箱运输</a></li>
+                        <li><a href="#" class="footer-link">散货运输</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-6">联系我们</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-blue-300 mt-1 mr-3"></i>
+                            <span class="footer-link">太仓港港口开发区北环路19号</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt text-blue-300 mr-3"></i>
+                            <span class="footer-link">15962278381</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope text-blue-300 mr-3"></i>
+                            <span class="footer-link">3082953421@qq.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-clock text-blue-300 mr-3"></i>
+                            <span class="footer-link">周一至周五: 9:00 - 18:00</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">
+                    &copy; 2023 苏州军瑞运输有限公司. 保留所有权利.
+                </p>
+                <div class="flex space-x-6">
+                    <a href="#" class="footer-link text-sm">隐私政策</a>
+                    <a href="#" class="footer-link text-sm">服务条款</a>
+                    <a href="#" class="footer-link text-sm">网站地图</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- 返回顶部按钮 -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg opacity-0 invisible transition-all duration-300">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <script>
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            // 加载动画
+            setTimeout(function() {
+                document.querySelector('.loader').classList.add('hidden');
+            }, 1000);
+            
+            // 移动端菜单切换
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            menuToggle.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // 滚动指示器
+            window.addEventListener('scroll', function() {
+                const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrollPercentage = (scrollTop / scrollHeight) * 100;
+                
+                document.querySelector('.scroll-indicator').style.width = scrollPercentage + '%';
+                
+                // 返回顶部按钮显示/隐藏
+                const backToTopButton = document.getElementById('back-to-top');
+                if (scrollTop > 300) {
+                    backToTopButton.classList.remove('opacity-0', 'invisible');
+                    backToTopButton.classList.add('opacity-100', 'visible');
+                } else {
+                    backToTopButton.classList.remove('opacity-100', 'visible');
+                    backToTopButton.classList.add('opacity-0', 'invisible');
+                }
+            });
+            
+            // 返回顶部按钮点击事件
+            document.getElementById('back-to-top').addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // 滚动动画
+            const animateElements = document.querySelectorAll('.animate-on-scroll');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            animateElements.forEach(element => {
+                observer.observe(element);
+            });
+            
+            // 数字计数器动画
+            const counters = document.querySelectorAll('.counter');
+            
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target;
+                        const target = parseInt(counter.getAttribute('data-target'));
+                        let count = 0;
+                        const duration = 2000; // 动画持续时间（毫秒）
+                        const interval = 20; // 更新间隔（毫秒）
+                        const increment = target / (duration / interval);
+                        
+                        const updateCount = () => {
+                            if (count < target) {
+                                count += increment;
+                                counter.innerText = Math.ceil(count);
+                                setTimeout(updateCount, interval);
+                            } else {
+                                counter.innerText = target;
+                            }
+                        };
+                        
+                        updateCount();
+                        counterObserver.unobserve(counter);
+                    }
+                });
+            }, {
+                threshold: 0.5
+            });
+            
+            counters.forEach(counter => {
+                counterObserver.observe(counter);
+            });
+            
+            // 联系按钮点击事件
+            document.querySelectorAll('a[href^="tel:"], a[href^="mailto:"]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const action = this.getAttribute('href').startsWith('tel:') ? '拨打电话' : '发送邮件';
+                    console.log(`用户选择${action}进行咨询`);
+                    // 这里可以添加统计代码或其他逻辑
+                });
+            });
+            
+            // Three.js 背景动画
+            initThreeJsBackground();
+        });
+        
+        // Three.js 背景动画
+        function initThreeJsBackground() {
+            const container = document.getElementById('canvas-container');
+            
+            // 创建场景
+            const scene = new THREE.Scene();
+            
+            // 创建相机
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 5;
+            
+            // 创建渲染器
+            const renderer = new THREE.WebGLRenderer({ alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setClearColor(0x000000, 0);
+            container.appendChild(renderer.domElement);
+            
+            // 创建粒子
+            const particlesGeometry = new THREE.BufferGeometry();
+            const particlesCount = 1500;
+            
+            const posArray = new Float32Array(particlesCount * 3);
+            
+            for (let i = 0; i < particlesCount * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 10;
+            }
+            
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            
+            // 创建材质
+            const particlesMaterial = new THREE.PointsMaterial({
+                size: 0.02,
+                color: 0x00D4FF,
+                transparent: true,
+                opacity: 0.8
+            });
+            
+            // 创建粒子系统
+            const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+            scene.add(particlesMesh);
+            
+            // 动画循环
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                particlesMesh.rotation.y += 0.001;
+                particlesMesh.rotation.x += 0.0005;
+                
+                renderer.render(scene, camera);
+            }
+            
+            animate();
+            
+            // 窗口大小调整
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
+    </script>
+</body>
+</html>
